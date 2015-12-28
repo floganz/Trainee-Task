@@ -40,11 +40,6 @@ function shift($char,$sh)
     if($arr[$i]==$char)
     {
       $index=$i;
-      if($index==-1)
-      {
-        return $char;
-      }
-      else
       {
         $shift=$index-$sh;
         while($shift<0)
@@ -55,11 +50,6 @@ function shift($char,$sh)
     else if($arr2[$i]==$char)
     {
       $index=$i;
-      if($index==-1)
-      {
-        return $char;
-      }
-      else
       {
         $shift=$index-$sh;
         while($shift<0)
@@ -67,6 +57,10 @@ function shift($char,$sh)
         return $arr2[$shift];
       }
     }
+  if($index==-1)
+  {
+    return $char;
+  }
 }
 
 function encrypt_message($str)
