@@ -1,0 +1,47 @@
+<!doctype html>
+<html ng-app="caesar">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <script type="text/javascript" src="angular.js"></script>
+    <script type="text/javascript" src="Chart.js"></script>
+    <script type="text/javascript" src="angular-chart.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="style.css"></link>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div class="hero-unit">
+        <h1>Caesar's code</h1>
+        <div id="line"></div>
+        <p class="lead">This application help you to encrypt or decrypt your message</p>
+        <p>If you want to encrypt your message just enter it, choose any number you want and press "Encrypt"</p>
+        <p>If you want to decrypt your message enter it, type shift for this message and press "Decrypt"</p>
+      </div>
+      <div ng-controller="CryptController as cryptCtrl" class="data">
+        <form  name="cryptForm" class="form-inline">
+          <div class="form-group" class="inputs">
+            <textarea ng-model="t.source" placeholder="Enter text to encrypt/decrypt" rows="10" cols="45" class="form-control" 
+            ng-change="cryptCtrl.chart(t);cryptCtrl.guess(t);"></textarea>
+            <div class="btn-group">
+              <input type="digit" ng-model="t.shift" placeholder="Enter shift" width="25px"  class="form-control"></input>
+              <p>
+              <button type="submit" class="btn btn-default" value="encrypt" ng-click="cryptCtrl.encrypt(t)">Encrypt</button> 
+              <button type="submit" class="btn btn-default" value="decrypt" ng-click="cryptCtrl.decrypt(t)">Decrypt</button> 
+            </div> 
+            <textarea  placeholder="Here will appear result" rows="10" cols="45" class="form-control">{{cryptCtrl.result}}</textarea>
+          </div>
+        </form>
+        <p>
+        <div class="diagram" ng-show="t.source.length">
+        <p class="lead">Frequency diagram shows how many times each letter meets in text</p>
+          <canvas class="chart chart-bar" chart-data="cryptCtrl.frequency" chart-labels="cryptCtrl.labels" height="50px"></canvas> 
+        </div>
+        <div class="guess" ng-show="t.source.length > 20 && cryptCtrl.guessShift">
+          <p class="lead">Probably message you enter already encrypted, application guess &mdash; shift = {{cryptCtrl.guessShift}}</p>
+          <p>Decrypted message using shift {{cryptCtrl.guessShift}}: {{cryptCtrl.guessresult}}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
