@@ -1,1 +1,1 @@
-(function(){alert()})()
+alert();
